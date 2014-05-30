@@ -46,17 +46,25 @@
     ok(formTrack!==undefined, 'formTrack should be defined');
   });
 
-  module('jQuery#serialize', {
+  module('jQuery#serialize static form data', {
     setup: function() {
       this.forms = $('form');
+      this.forms.track();
     }
   });
 
-  test('static form data - single text input', function(){
+  test('single text input', function(){
     expect(1);
-    this.forms.track();
+
     var track = this.forms[0]._track;
-    strictEqual(track,'number=1', 'track should be defined');
+    strictEqual(track,'number=1', 'track should be a URL encoded string');
+  });
+
+  test('multiple text inputs', function(){
+    expect(1);
+
+    var track = this.forms[1]._track;
+    strictEqual(track,'number=1&string=a', 'track should be a URL encoded string');
   });
 
 }(jQuery));
