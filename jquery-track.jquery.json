@@ -1,0 +1,28 @@
+{
+  "name": "jquery-track",
+  "title": "Form Tracking Plugin",
+  "description": "Track and warn only if use has any changes on the form before user navigates away.",
+  "version": "0.0.1",
+  "homepage": "https://github.com/khanhhua/jquery-track",
+  "author": {
+    "name": "Khanh Hua",
+    "url": "https://github.com/khanhhua"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/khanhhua/jquery-track"
+  },
+  "bugs": "https://github.com/khanhhua/jquery-track/issues",
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://opensource.org/licenses/MIT"
+    }
+  ],
+  "dependencies": {
+    "jquery": "~1.9.2"
+  },
+  "keywords": [
+    "jquery-plugin"
+  ]
+}
