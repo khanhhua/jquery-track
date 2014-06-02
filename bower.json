@@ -1,7 +1,9 @@
 {
   "name": "jquery-track",
   "version": "0.0.1",
-  "dependencies": {},
+  "dependencies": {
+    "jssha": "~1.5.0"
+  },
   "devDependencies": {
     "qunit": "~1.12.0",
     "jquery": "~1.9.1"

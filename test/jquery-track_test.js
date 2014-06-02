@@ -19,6 +19,10 @@
       notStrictEqual(actual, expected, [message])
       throws(block, [expected], [message])
   */
+  var sha = function(data) {
+    shaObj = new jsSHA(data, 'TEXT');
+    return shaObj.getHash('SHA-256','HEX');
+  };
 
   module('jQuery#track', {
     // This will run before each test in this module.
@@ -57,14 +61,21 @@
     expect(1);
 
     var track = this.forms[0]._track;
-    strictEqual(track,'number=1', 'track should be a URL encoded string');
+    strictEqual(track,sha('number=1'), 'track should be a URL encoded string');
+  });
+
+  test('text inputs without name', function(){
+    expect(1);
+
+    var track = this.forms[1]._track;
+    ok(track!==undefined,'track should be a URL encoded string');
   });
 
   test('multiple text inputs', function(){
     expect(1);
 
-    var track = this.forms[1]._track;
-    strictEqual(track,'number=1&string=a', 'track should be a URL encoded string');
+    var track = this.forms[2]._track;
+    strictEqual(track,sha('number=1&string=a'), 'track should be a URL encoded string');
   });
 
 }(jQuery));

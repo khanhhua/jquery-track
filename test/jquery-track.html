@@ -5,6 +5,7 @@
   <title>Form Tracking Plugin Test Suite</title>
   <!-- Load local jQuery. -->
   <script src="../bower_components/jquery/jquery.js"></script>
+  <script src="../bower_components/jssha/src/sha256.js"></script>
   <!-- Load local QUnit. -->
   <link rel="stylesheet" href="../bower_components/qunit/qunit/qunit.css" media="screen">
   <script src="../bower_components/qunit/qunit/qunit.js"></script>
@@ -27,6 +28,11 @@
   </div>
   <form>
     <input name="number" value="1" />
+  </form>
+
+  <form id="form-no-field">
+    <input value="no" />
+    <input value="field" />
   </form>
 
   <form id="form-multi-text">

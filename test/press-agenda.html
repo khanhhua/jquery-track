@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Form Tracking Plugin Test Suite</title>
+  <!-- Load local jQuery. -->
+  <script src="../bower_components/jquery/jquery.js"></script>
+  <script src="../bower_components/jssha/src/sha256.js"></script>
+  <!-- Load local QUnit. -->
+  <link rel="stylesheet" href="../bower_components/qunit/qunit/qunit.css" media="screen">
+  <script src="../bower_components/qunit/qunit/qunit.js"></script>
+  <!-- Load local lib and tests. -->
+  <script src="../src/jquery-track.js"></script>
+  <script src="jquery-track_press-agenda.js"></script>
+  <!-- Removing access to jQuery and $. But it'll still be available as _$, if
+       you REALLY want to mess around with jQuery in the console. REMEMBER WE
+       ARE TESTING A PLUGIN HERE, THIS HELPS ENSURE BEST PRACTICES. REALLY. -->
+  <script>window._$ = jQuery.noConflict(true);</script>
+</head>
+<body>
+<div id="qunit"></div>
+<a href="/test/">Go to Test Folder</a>
+<form id="createPressAgendaForm" modelattribute="createEventForm"
+      action="/belgasource/fo/press-agenda/create-event/submit-event" method="POST" onsubmit="return validatePage()">
+  <input name="pageFlowId" id="pageFlowId" type="hidden" value="fb0f9353d78f728d3c251e4fa3c20dfb">
+
+  <div id="pageErrorMessage"></div>
+  <div class="TabContent NoPadding">
+    <div class="InnerTab">
+      <h4>Organiser info</h4>
+      <!-- import create-event-organisation-info.jsp -->
+      <h5 class="Hide"></h5>
+      <h6>About your organisation*</h6>
+
+      <div class="row-fluid mb-small">
+        <div class="stand-alone">
+          <input type="text" name="organisation" placeholder="Your Orgarnisation" readonly=""
+                 value="Belga News Agency ">
+        </div>
+        <div class="stand-alone">
+          <input id="website-event" type="text" name="orgWebsiteUrl" maxlength="250"
+                 placeholder="Enter your website address" value="http://abcd.com.vn" valid-value="http://,https://">
+        </div>
+      </div>
+      <h5 class="Hide"></h5>
+      <h6>Organisation contact(s) *</h6>
+      <input type="hidden" name="contactListId" id="contactListId" value="">
+
+      <div class="row-fluid mb-small">
+        <div class="row-cell col2">
+          <div class="select2-container select2-container-multi select-fullwidth" id="s2id_cboContactDetail">
+            <ul class="select2-choices">
+              <li class="select2-search-field"><input type="text" autocomplete="off" autocorrect="off"
+                                                      autocapitilize="off" spellcheck="false"
+                                                      class="select2-input select2-default" id="s2id_autogen5"
+                                                      placeholder="Choose an organisation contact*"
+                                                      style="width: 488px;"></li>
+            </ul>
+            <div class="select2-drop select2-drop-multi select2-display-none">
+              <ul class="select2-results">
+                <li class="select2-no-results">No matches found</li>
+              </ul>
+            </div>
+            <a id="create-new-contact" href="javascript:void(0);" class="button create-new-contact cboxElement">Create
+              New</a></div>
+          <select id="cboContactDetail" name="companyContactIds" multiple="" class="select-fullwidth select2-offscreen"
+                  value="" data-placeholder="Choose an organisation contact*" tabindex="-1">
+            <option value=""></option>
+            <option value="addnew">Create new</option>
+            <option value="16050">thao duong</option>
+            <option value="9053">test9 test9</option>
+            <option value="9052">test8 test8</option>
+            <option value="9051">test7 test7</option>
+            <option value="9050">test6 test6</option>
+            <option value="5055">test3 test3</option>
+            <option value="5054">test2 test2</option>
+            <option value="9100">test12 test12</option>
+            <option value="9055">test11 test11</option>
+            <option value="9054">test10 test10</option>
+            <option value="5053">test test</option>
+            <option value="5050">tam hoang</option>
+          </select>
+        </div>
+      </div>
+      <h4>Event info</h4>
+      <!-- import create-event-content.jsp -->
+      <h5 class="Hide"></h5>
+      <h6>
+        Basic info*
+      </h6>
+
+      <div class="two-col Wrapper">
+        <div class="Calendar Wrapper Left">
+          <input name="eventStartDate" id="txtStartDate" onblur="return validateDateInput(this, 'start');" value=""
+                 class="Left hasDatepicker error" type="text" maxlength="16"
+                 placeholder="Enter your date and start hour is required"><img class="ui-datepicker-trigger"
+                                                                               src="/belgasource/fo/images/calendar.png"
+                                                                               alt="..." title="...">
+        </div>
+        <div class="Calendar Wrapper Right">
+          <input name="eventEndDate" id="txtEndDate" onblur="return validateDateInput(this, 'end');" value=""
+                 class="Left hasDatepicker" type="text" maxlength="16" placeholder="Enter your date and end hour *"><img
+            class="ui-datepicker-trigger" src="/belgasource/fo/images/calendar.png" alt="..." title="...">
+        </div>
+      </div>
+      <div class="row-fluid mb-small">
+        <div class="row-cell col2">
+          <div class="select2-container select-fullwidth select-one" id="s2id_cEventSchedule"><a
+              href="javascript:void(0)" onclick="return false;" class="select2-choice select2-default" tabindex="-1">
+            <span class="select2-chosen">All day / morning / afternoon (optional)</span><abbr
+              class="select2-search-choice-close"></abbr> <span class="select2-arrow"><b></b></span></a><input
+              class="select2-focusser select2-offscreen" type="text" id="s2id_autogen6">
+
+            <div class="select2-drop select2-display-none select2-with-searchbox">
+              <div class="select2-search"><input type="text" autocomplete="off" autocorrect="off" autocapitalize="off"
+                                                 spellcheck="false" class="select2-input"
+                                                 placeholder="All day / morning / afternoon (optional)"></div>
+              <ul class="select2-results"></ul>
+            </div>
+          </div>
+          <select id="cEventSchedule" name="eventType" value="" class="select-fullwidth select-one select2-offscreen"
+                  data-placeholder="All day / morning / afternoon (optional)" tabindex="-1">
+            <option value="" selected="selected"></option>
+            <option value="default">
+              Another option
+            </option>
+            <option value="2-allday">
+              All day event
+            </option>
+            <option value="1-morning">
+              All morning event
+            </option>
+            <option value="3-afternoon">
+              All afternoon event
+            </option>
+            <option value="4-evening">
+              All evening event
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="CEventTile">
+        <input id="tit-event" type="text" name="eventTitle" placeholder="Enter your title *" value="" maxlength="120">
+      </div>
+      <div class="two-col">
+        <textarea id="event-subject" maxlength="4000" placeholder="Enter your subject *" name="eventSubject" value=""
+                  cols="100" rows="10">
+</body>
+</html>
